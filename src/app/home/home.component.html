@@ -1,0 +1,32 @@
+<div class="spinner" *ngIf="artiklar == null">
+  <h1 class="spinner-text">Laddar sortiment</h1>
+  <div>
+    <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+<div *ngIf="artiklar != null">
+  <p-dataTable [value]="artiklar" [globalFilter]="gb" #dt>
+    <p-column [filter]="true" filterMatchMode="contains" [sortable]="true" field="Namn" header="Namn"></p-column>
+    <p-column [sortable]="true" field="Ursprunglandnamn" header="Land" [filter]="true" filterMatchMode="equals"> 
+        <ng-template pTemplate="filter" let-col>
+            <p-dropdown [options]="countries" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
+          </ng-template>
+    </p-column>
+    <p-column [sortable]="true" field="Typ" header="Typ" [filter]="true" filterMatchMode="equals">
+      <ng-template pTemplate="filter" let-col>
+        <p-dropdown [options]="beerTypes" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
+      </ng-template>
+    </p-column>
+    <p-column [filter]="true" filterMatchMode="contains" sortable="custom" (sortFunction)="sortAlk($event)" field="Alkoholhalt" header="Alkoholhalt"></p-column>
+    <p-column [sortable]="true" field="Saljstart" header="Säljstart" [filter]="true" filterMatchMode="equals">
+      <ng-template pTemplate="filter" let-col>
+        <i class="fa fa-close" (click)="yearFilter=null;dt.filter(null,col.field,col.filterMatchMode)"></i>
+        <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onChange)="onYearChange($event, dt, col)"></p-slider>
+    </ng-template>
+    </p-column>
+    <p-column [sortable]="true" field="Prisinklmoms" header="Pris"></p-column>
+    <p-column [sortable]="true" field="Volymiml" header="Volum (ml)"></p-column>
+  </p-dataTable>
+</div>
