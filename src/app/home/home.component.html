@@ -7,7 +7,7 @@
 </div>
 
 <div *ngIf="artiklar != null">
-  <p-dataTable [value]="artiklar" [globalFilter]="gb" #dt>
+  <p-dataTable [rows]="20" [paginator]="true" [value]="artiklar" [globalFilter]="gb" #dt>
     <p-column [filter]="true" filterMatchMode="contains" [sortable]="true" field="Namn" header="Namn"></p-column>
     <p-column [sortable]="true" field="Ursprunglandnamn" header="Land" [filter]="true" filterMatchMode="equals"> 
         <ng-template pTemplate="filter" let-col>
