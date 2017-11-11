@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SystembolagetService } from '../services/systembolaget.service';
-
+import { SystembolagetService, ISystembolagerResult } from '../services/systembolaget.service';
+import { EEmitterStatus } from '../services/emitter';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -16,33 +16,28 @@ export class HomeComponent implements OnInit {
   yearFilter: number;
   yearTimeout: any;
   constructor(private systembolagetService: SystembolagetService) {
-    this.systembolagetService.getSortiment().subscribe(res => {
-      console.warn(res.artiklar.artikel);
-      this.artiklar = res.artiklar.artikel.filter(a => a.Varugrupp === 'Öl').map(a => {
-        a.Namn += ' ' + a.Namn2;
-        return a;
-      });
-      const types = this.artiklar.map(a => a.Typ);
-      const unique = Array.from(new Set(types));
-      this.beerTypes = this.beerTypes.concat(unique.map(s => {
-        return {label: s, value: s};
-      }));
-      const countries = this.artiklar.map(a => a.Ursprunglandnamn);
-      const countriesUnique = Array.from(new Set(countries)).sort((a, b) => {
-        if (a < b)
-          return -1;
-        if (a > b)
-          return 1;
-        return 0;
-      });
-      this.countries = this.countries.concat(countriesUnique.map(s => {
-        return {label: s, value: s};
-      }));
-    });
+    this.systembolagetService.onChange(this.onChangeSystembolaget);
+    const result = this.systembolagetService.getSortiment();
+    this.setDataFromResult(result);
+  }
+
+  private setDataFromResult = (result: ISystembolagerResult) => {
+    console.warn(result);
+    if (result.status === EEmitterStatus.Loaded) {
+      this.artiklar = result.data.artiklar;
+      this.countries = this.countries.concat(result.data.countries);
+      this.beerTypes = this.beerTypes.concat(result.data.beerTypes);
+    }
+
+  }
+
+  private onChangeSystembolaget = () => {
+    const result = this.systembolagetService.getSortiment();
+    this.setDataFromResult(result);
   }
 
   onYearChange(event, dt, col) {
-    if(this.yearTimeout) {
+    if (this.yearTimeout) {
         clearTimeout(this.yearTimeout);
     }
     this.yearTimeout = setTimeout(() => {
