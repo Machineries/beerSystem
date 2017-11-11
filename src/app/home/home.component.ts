@@ -17,8 +17,7 @@ export class HomeComponent implements OnInit {
   yearTimeout: any;
   constructor(private systembolagetService: SystembolagetService) {
     this.systembolagetService.getSortiment().subscribe(res => {
-      console.warn(res.artiklar.artikel);
-      this.artiklar = res.artiklar.artikel.filter(a => a.Varugrupp === 'Öl').map(a => {
+      this.artiklar = res.map(a => {
         a.Namn += ' ' + a.Namn2;
         return a;
       });

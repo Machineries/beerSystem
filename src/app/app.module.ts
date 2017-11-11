@@ -10,6 +10,9 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { StatisticsComponent } from './statistics/statistics.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { BeerwikiComponent } from './beerwiki/beerwiki.component';
 
 // Routes
 import { appRoutes } from './app.routes';
@@ -18,7 +21,7 @@ import { HomeComponent } from './home/home.component';
 import { FormsModule} from '@angular/forms';
 
 // tslint:disable-next-line:max-line-length
-import { ButtonModule, InputTextModule, DataGridModule, DataTableModule, SharedModule, SliderModule, DropdownModule } from 'primeng/primeng';
+import {ChartModule, ButtonModule, InputTextModule, DataGridModule, DataTableModule, SharedModule, SliderModule, DropdownModule } from 'primeng/primeng';
 
 // Services
 import { SystembolagetService } from './services/systembolaget.service';
@@ -30,12 +33,16 @@ import { SystembolagetService } from './services/systembolaget.service';
     ContactsComponent,
     PagenotfoundComponent,
     NewsComponent,
+    StatisticsComponent,
+    WelcomeComponent,
+    BeerwikiComponent,
     HomeComponent
   ],
   imports: [
     BrowserAnimationsModule,
     SliderModule,
     ButtonModule,
+    ChartModule,
     DataGridModule,
     DataTableModule,
     SharedModule,
