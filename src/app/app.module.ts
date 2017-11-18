@@ -13,6 +13,9 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { BeerwikiComponent } from './beerwiki/beerwiki.component';
+import { SellstartComponent } from './statistics/sellstart/sellstart.component';
+import { QuanityComponent } from './statistics/quanity/quanity.component';
+import { BeersortComponent } from './statistics/beersort/beersort.component';
 
 // Routes
 import { appRoutes } from './app.routes';
@@ -36,6 +39,9 @@ import { SystembolagetService } from './services/systembolaget.service';
     StatisticsComponent,
     WelcomeComponent,
     BeerwikiComponent,
+    SellstartComponent,
+    QuanityComponent,
+    BeersortComponent,
     HomeComponent
   ],
   imports: [
